@@ -9,10 +9,12 @@ module.exports = {
 		//check for advantage
 		
 		var dieString = tokens[0].substring(1);
+		if(isNaN(parseInt(dieString))) return message.reply('can\'t roll that die, its not a number');
 		var inputVal = 0, dieVal = 0;
 		var rollTotal = 0;
 		try{
 			inputVal = parseInt(dieString);
+			if(inputVal < 1) return message.reply('Dice roll must have alteast one side');
 			dieVal = Math.floor(Math.random() * inputVal) + 1;
 			rollTotal += dieVal;
 		}catch(err){
@@ -21,6 +23,7 @@ module.exports = {
 		if(tokens.length > 2){
 			var bonus;
 			try{
+				if(isNaN(parseInt(tokens[2]))) return message.reply('can\'t add that bonus, its not a number');
 				bonus = parseInt(tokens[2]);
 				if(tokens[1] === '+'){
 					rollTotal += bonus;
